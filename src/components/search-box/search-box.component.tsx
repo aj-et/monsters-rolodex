@@ -1,22 +1,65 @@
+import { ChangeEventHandler } from 'react';
+
 import './search-box.styles.css'
 
-// Extensible like class components
-interface ISearchBoxProps extends IChangeHandlerProps { // putting extends adds the interface
-    // Shape of actual object
+/** 
+ * 
+ * // Interface = Object Oriented Style
+ * // Extensible like class components
+ * interface ISearchBoxProps extends IChangeHandlerProps { // putting extends adds the interface
+ *  // Shape of actual object
+ *  className: string;
+ *  placeholder?: string; // ? is optional either string or null
+ * }
+ * 
+ * interface IChangeHandlerProps { // having the same interface name also combines them called Overloading
+ *  onChangeHandler: (a: string) => void
+ * }
+ * 
+ */
+
+// Types = Functional Programming Style
+
+type SearchBoxProps = {
     className: string;
-    placeholder?: string; // ? is optional either string or null
+    placeholder?: string;
+    onChangeHandler: ChangeEventHandler<HTMLInputElement>;
+};
+
+/** 
+// This is for union
+// What the diff.. allows union or a combination of types
+type CanadianAddress = {
+    street: string;
+    province: string;
 }
 
-interface IChangeHandlerProps { // having the same interface name also combines them called Overloading
-    onChangeHandler: (a: string) => void
+type USAddress = {
+    street: string;
+    state: string;
 }
 
-const SearchBox = ({ className, placeholder, onChangeHandler }: ISearchBoxProps) => (
+type ItalianAddress = {
+    street: string;
+    region: string;
+}
+
+type WesternAddress = CanadianAddress | USAddress | ItalianAddress;
+
+const Address: WesternAddress = {
+    street: 'asdw',
+    state: 'wafasda',
+    province: 'awdaf',
+    region: 'asdwa'
+}
+*/
+
+const SearchBox = ({ className, placeholder, onChangeHandler }: SearchBoxProps) => (
     <input 
         className={`search-box ${className}`}
         type='search' 
         placeholder={placeholder}
-        onChange={(e) => onChangeHandler(e)} // No more reinitializing anonymous function
+        onChange={onChangeHandler} // No more reinitializing anonymous function
     />
 );
 
