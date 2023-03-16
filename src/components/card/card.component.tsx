@@ -1,6 +1,12 @@
+import { Monster } from '../../App';
+
 import './card.styles.css'
 
-const Card = ({ monster: { id, name, email }}) => { // This is another way of destructuring
+type CardProps = {
+    monster: Monster;
+};
+
+const Card = ({ monster: { id, name, email }}: CardProps) => { // This is another way of destructuring
     // Removed the key here because I already have one in the card-list
     return (
         <div className='card-container'>
